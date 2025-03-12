@@ -87,6 +87,7 @@
         if (response.ok) {
             alert('OTP sent successfully! Check your email.');
             document.getElementById('otpSection').style.display = 'block'; // Show OTP input field
+            document.getElementById('resumeRequestForm').reset();
         } else {
             alert(result.error || 'Failed to send OTP. Please try again.');
         }
