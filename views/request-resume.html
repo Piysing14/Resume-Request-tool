@@ -88,9 +88,7 @@
             alert('OTP sent successfully! Check your email.');
             document.getElementById('otpSection').style.display = 'block'; // Show OTP input field
             // Redirect after a short delay for better user experience
-    setTimeout(() => {
-        window.location.href = "https://piysing14.github.io/Piyush-Portfolio/";
-    }, 2000); // 2-second delay for better flow
+    
         } else {
             alert(result.error || 'Failed to send OTP. Please try again.');
         }

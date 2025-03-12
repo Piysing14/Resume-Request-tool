@@ -92,6 +92,10 @@ Piyush Singh
     try {
         await transporter.sendMail(mailOptions);
         res.status(200).send(`Dear ${name}, Resume sent successfully! Please check your inbox.`);
+        
+        setTimeout(() => {
+            window.location.href = "https://piysing14.github.io/Piyush-Portfolio/";
+        }, 2000); // 2-second delay for better flow
     } catch (error) {
         console.error(`Error sending resume: ${error.message}`);
         res.status(500).json({ error: 'Failed to send resume' });
