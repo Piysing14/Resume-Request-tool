@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-app.get('/request-resume', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'request-resume.html'));
 });
 
