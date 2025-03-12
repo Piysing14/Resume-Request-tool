@@ -133,114 +133,141 @@
 
   -->
 
-
   <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Piyush Resume Request</title>
-  <link rel="icon" href="https://www.logologo.com/freelogos/Pinterest-P-white-rounded-square.png"/>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
-
-  <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-    <h1 class="text-2xl md:text-3xl font-bold text-purple-600 mb-4">Request Resume</h1>
-    <p class="block text-sm md:text-base text-gray-700">Kindly complete the form below to request access to my resume.</p>
-    <br>
-
-    <form id="resumeRequestForm" class="space-y-4">
-
-      <div>
-        <label class="block text-sm text-gray-700">Full Name</label>
-        <input type="text" name="name" required class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
-      </div>
-
-      <div>
-        <label class="block text-sm text-gray-700">Email Address</label>
-        <input type="email" id="email" name="email" required class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
-        <button type="button" id="requestOtpBtn" 
-          class="bg-blue-500 text-white w-full py-2 rounded-md mt-2 hover:bg-blue-600 transition-all">
-          Request OTP
+  <html lang="en">
+  <head>
+    <title>Piyush Resume Request</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.logologo.com/freelogos/Pinterest-P-white-rounded-square.png"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+  
+    <div class="bg-white p-6 md:p-8 rounded-xl shadow-md w-full max-w-md">
+      <h1 class="text-2xl md:text-3xl font-bold text-purple-600 mb-4">Request Resume</h1>
+      <p class="block text-sm md:text-base text-gray-700">
+        Kindly complete the form below to request access to my resume.
+      </p>
+      <br>
+  
+      <form id="resumeRequestForm" class="space-y-4">
+  
+        <div>
+          <label class="block text-sm text-gray-700">Full Name</label>
+          <input 
+            type="text" 
+            name="name" 
+            required 
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
+        </div>
+  
+        <div>
+          <label class="block text-sm text-gray-700">Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required 
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
+          <button 
+            type="button" 
+            id="requestOtpBtn"
+            class="bg-blue-500 text-white w-full py-2 rounded-md mt-2 hover:bg-blue-600 transition-all">
+            Request OTP
+          </button>
+        </div>
+  
+        <div id="otpSection" class="hidden">
+          <label class="block text-sm text-gray-700">OTP</label>
+          <input 
+            type="text" 
+            name="otp" 
+            required 
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
+        </div>
+  
+        <div>
+          <label class="block text-sm text-gray-700">Purpose of Request</label>
+          <textarea 
+            name="message" 
+            rows="3" 
+            required 
+            placeholder="Why are you requesting my resume?" 
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md"></textarea>
+        </div>
+  
+        <div>
+          <label class="block text-sm text-gray-700">Contact (Optional)</label>
+          <input 
+            type="tel" 
+            name="phone" 
+            pattern="[6-9]\d{9}" 
+            maxlength="10" 
+            minlength="10"
+            title="Please enter a valid 10-digit Indian phone number starting with 6-9."
+            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
+        </div>
+  
+        <button 
+          type="submit" 
+          class="bg-purple-500 text-white w-full py-2 rounded-md hover:bg-purple-600 transition-all">
+          Submit Request
         </button>
-      </div>
-
-      <div id="otpSection" class="hidden">
-        <label class="block text-sm text-gray-700">OTP</label>
-        <input type="text" name="otp" required 
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md"/>
-      </div>
-
-      <div>
-        <label class="block text-sm text-gray-700">Purpose of Request</label>
-        <textarea name="message" rows="3" required 
-          placeholder="Why are you requesting my resume?" 
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md"></textarea>
-      </div>
-
-      <div>
-        <label class="block text-sm text-gray-700">Contact (Optional)</label>
-        <input type="tel" name="phone" pattern="[6-9]\d{9}" maxlength="10" minlength="10"
-          title="Please enter a valid 10-digit Indian phone number starting with 6-9."
-          class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring focus:ring-blue-500"/>
-      </div>
-
-      <button type="submit" class="bg-purple-500 text-white w-full py-2 rounded-md hover:bg-purple-600 transition-all">
-        Submit Request
-      </button>
-    </form>
-  </div>
-
-<script>
-document.getElementById('requestOtpBtn').addEventListener('click', async function () {
-    const email = document.getElementById('email').value;
-
-    if (!email) {
-        alert('Please enter your email to request an OTP.');
-        return;
-    }
-
-    const response = await fetch('/request-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-        alert('OTP sent successfully! Check your email.');
-        document.getElementById('otpSection').classList.remove('hidden');
-    } else {
-        alert(result.error || 'Failed to send OTP. Please try again.');
-    }
-});
-
-document.getElementById('resumeRequestForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-
-    try {
-        const response = await fetch('/request-resume', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.text();
-        alert(result);
-
-        if (response.ok) {
-            setTimeout(() => {
-                window.location.href = "https://piysing14.github.io/Piyush-Portfolio/";
-            }, 2000);
-        }
-
-    } catch (error) {
-        alert('Something went wrong. Please try again later.');
-    }
-});
-</script>
-
-</body>
-</html>
+      </form>
+    </div>
+  
+  <script>
+  document.getElementById('requestOtpBtn').addEventListener('click', async function () {
+      const email = document.getElementById('email').value;
+  
+      if (!email) {
+          alert('Please enter your email to request an OTP.');
+          return;
+      }
+  
+      const response = await fetch('/request-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+          alert('OTP sent successfully! Check your email.');
+          document.getElementById('otpSection').classList.remove('hidden');
+      } else {
+          alert(result.error || 'Failed to send OTP. Please try again.');
+      }
+  });
+  
+  document.getElementById('resumeRequestForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+  
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData);
+  
+      try {
+          const response = await fetch('/request-resume', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+          });
+  
+          const result = await response.text();
+          alert(result);
+  
+          if (response.ok) {
+              setTimeout(() => {
+                  window.location.href = "https://piysing14.github.io/Piyush-Portfolio/";
+              }, 2000);
+          }
+  
+      } catch (error) {
+          alert('Something went wrong. Please try again later.');
+      }
+  });
+  </script>
+  
+  </body>
+  </html>
+  
