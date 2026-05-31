@@ -83,8 +83,8 @@ Piyush Singh
         `,
         attachments: [
             {
-                filename: 'Piyush_Khati_Resume.docx',
-                path: './files/Piyush_Khati_Resume.docx'
+                filename: 'Piyush_Khati_Resume.pdf',
+                path: './files/Piyush_Khati_Resume.pdf'
             }
         ]
     };
